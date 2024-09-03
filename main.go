@@ -24,25 +24,27 @@ func main() {
         fmt.Println("whoopsie at line 42")
     }
 
-    fmt.Println("reached routes in main.go")
+    // Might start some go routines internally. here not needet, http takes care of the queue of requests.
+    // internally there might be some cases where go routines can amplify the speed of the API. will search for a way to benchmark it.
+
     // Routes 
     // create post
     httpMux.HandleFunc("POST /create", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("create route works"))}) 
 
     // retrieve posts randomly
-    httpMux.HandleFunc("GET /posts", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("posts route works"))})
+    httpMux.HandleFunc("GET /posts/{topic}/{limit}", cmpln.HTTPRetrievePosts)
         
     // retrieve certain post
-    httpMux.HandleFunc("GET /post/id", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("fetching one post works"))})
+    httpMux.HandleFunc("GET /post/{id}", cmpln.HTTPRetrievePost)
 
     // update post
     httpMux.HandleFunc("PUT /update/id", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("update route works"))})
 
     // delete post
-    httpMux.HandleFunc("DELETE /delete/id", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("delete route works"))}) 
+    httpMux.HandleFunc("DELETE /delete/{id}", cmpln.HTTPDeletePost) 
 
 
-    fmt.Println("Listening on Port: %s", listeningport)
+    fmt.Printf("Listening on Port %s", listeningport)
     log.Fatal(server.ListenAndServe())
 
         
