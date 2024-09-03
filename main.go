@@ -3,6 +3,7 @@ package main
 
 import(
     "fmt"
+    "log"
     "net/http"
     "cmpln/cmpln"
 )
@@ -11,11 +12,17 @@ func main() {
     // const values
     const listeningport = ":8080"
     httpMux := http.NewServeMux()    
-    /*server := http.Server{
+    server := http.Server{
         Handler: httpMux,
         Addr: listeningport,
-    }*/
+    }
+  
+    // Setup db connection
+    err := cmpln.SetupDBConn("root", "admin", "cmplnDB") 
     
+    if err != nil {
+        fmt.Println("whoopsie at line 42")
+    }
 
     fmt.Println("reached routes in main.go")
     // Routes 
@@ -35,15 +42,11 @@ func main() {
     httpMux.HandleFunc("DELETE /delete/id", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("delete route works"))}) 
 
 
-    //server.ListenAndServe()
+    fmt.Println("Listening on Port: %s", listeningport)
+    log.Fatal(server.ListenAndServe())
 
         
-    var err error    
-    err = cmpln.SetupDBConn("root", "admin", "cmplnDB") 
-    
-    if err != nil {
-        fmt.Println("whoopsie at line 42")
-    }
+
 
    
     // fetching data limited by num works now

@@ -52,7 +52,6 @@ func TestRetrievePosts(t *testing.T) {
 
 func TestRetrievePost(t *testing.T) {
 
-    fmt.Println("test entered")
 
     expectedPostObj := Post{
         Nickname: "test name",
@@ -63,7 +62,7 @@ func TestRetrievePost(t *testing.T) {
 
     tests := []struct{
         name string
-        id int
+        id int64
         expected Post
     }{
         {

@@ -58,7 +58,7 @@ func RetrievePosts(topic string, limitnum int) ([]Post, error) {
 
 
 
-func RetrievePost(id int) (Post, error) {
+func RetrievePost(id int64) (Post, error) {
     // setup db connection
     if err := SetupDBConn("root", "admin", "cmplnDB"); err != nil {
         return Post{}, fmt.Errorf("Error trying to establish connection to DB in RetrievePost-Function: %v", err)
@@ -86,8 +86,6 @@ func RetrievePost(id int) (Post, error) {
         }
     }
     
-    fmt.Println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-    fmt.Println(post.Nickname)
 
     return post, nil
 }

@@ -6,7 +6,13 @@ import(
 )
 
 func CreatePost(nickname, description, topic string) (int64, error) {
-    
+   
+    // if params are empty just throw an error
+    if nickname == "" || description == "" || topic == "" {
+        return 0, fmt.Errorf("Params are empty. Creating a post is not possible i n CreatePost-Function.")
+    }
+
+
     if err := SetupDBConn("root", "admin", "cmplnDB"); err != nil {
         fmt.Errorf("Error trying to establich DB conn in CreatePost-Function: %v", err)
     }
