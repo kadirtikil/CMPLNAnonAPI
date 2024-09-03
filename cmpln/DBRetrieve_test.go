@@ -76,7 +76,7 @@ func TestRetrievePost(t *testing.T) {
         t.Run(test.name, func(t *testing.T){
             actual, err := RetrievePost(test.id)
             if err != nil {
-                t.Errorf("Error trying to fetch Post in TestRetrievePost-Function: %v", err)
+                t.Errorf("Error trying to fetch Post in TestRetrievePost-Function: %#v", err)
             }
             
             if !reflect.DeepEqual(actual, test.expected) {

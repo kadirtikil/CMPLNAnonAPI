@@ -7,6 +7,7 @@ import (
 
 // the defaults need to be blacklisted.
 type Post struct {
+    Id int64 `default:"ID default"`
     Nickname string `default:"Default Post Object"`
     Description string `default:"Default Description"`
     Date string `default:"Default Date"`
@@ -42,7 +43,7 @@ func RetrievePosts(topic string, limitnum int) ([]Post, error) {
     for rows.Next() {
         var post Post
         // Scan the row into the Post struct
-        if err := rows.Scan(&post.Nickname, &post.Description, &post.Date, &post.Topic); err != nil {
+        if err := rows.Scan(&post.Id, &post.Nickname, &post.Description, &post.Date, &post.Topic); err != nil {
             return nil, fmt.Errorf("Error scanning row into Post struct: %v", err)
         }
         postsAsArray = append(postsAsArray, post)
@@ -81,7 +82,7 @@ func RetrievePost(id int64) (Post, error) {
 
     var post Post
     for row.Next(){
-        if err := row.Scan(&post.Nickname, &post.Description, &post.Date, &post.Topic); err != nil {
+        if err := row.Scan(&post.Id ,&post.Nickname, &post.Description, &post.Date, &post.Topic); err != nil {
             return Post{}, fmt.Errorf("Error trying to scan for post object in RetrievePost-Function: %v", err)
         }
     }

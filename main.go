@@ -29,7 +29,7 @@ func main() {
 
     // Routes 
     // create post
-    httpMux.HandleFunc("POST /create", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("create route works"))}) 
+    httpMux.HandleFunc("POST /create", cmpln.HTTPCreatePost) 
 
     // retrieve posts randomly
     httpMux.HandleFunc("GET /posts/{topic}/{limit}", cmpln.HTTPRetrievePosts)
@@ -38,7 +38,7 @@ func main() {
     httpMux.HandleFunc("GET /post/{id}", cmpln.HTTPRetrievePost)
 
     // update post
-    httpMux.HandleFunc("PUT /update/id", func(w http.ResponseWriter, r *http.Request) {w.Write([]byte("update route works"))})
+    httpMux.HandleFunc("PUT /update", cmpln.HTTPUpdatePost)
 
     // delete post
     httpMux.HandleFunc("DELETE /delete/{id}", cmpln.HTTPDeletePost) 
