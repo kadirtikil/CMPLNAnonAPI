@@ -16,6 +16,11 @@ func HTTPUpdatePost(w http.ResponseWriter, r *http.Request) {
     }
 
     defer r.Body.Close()
+
+    if len(post.Nickname) > 49 || len(post.Description) > 399 || len(post.Topic) > 49 {
+        http.Error(w, "Format of attributes is wrong", http.StatusInternalServerError)
+        return
+    }
     
     if err := UpdatePost(post.Id, post.Nickname, post.Description, post.Topic); err != nil {
         http.Error(w, "couldnt update post in HTTPUpdatePost-Function", http.StatusInternalServerError)
