@@ -16,7 +16,14 @@ func main() {
         Handler: httpMux,
         Addr: listeningport,
     }
-  
+ 
+
+    // The following is the CRUD
+    // All this will be packed in some middleware that checks a jwt or maybe not even that. The application is light weight anyway. 
+    // Maybe just leaving your email with a nickname will suffice. 
+    // so ill just check, if the email and the nickname match and then let the post through. 
+    // checks for profanity, spam and so on will folow
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // Setup db connection
     err := cmpln.SetupDBConn("root", "admin", "cmplnDB") 
     
@@ -33,7 +40,7 @@ func main() {
 
     // retrieve posts randomly
     httpMux.HandleFunc("GET /posts/{topic}/{limit}", cmpln.HTTPRetrievePosts)
-        
+    
     // retrieve certain post
     httpMux.HandleFunc("GET /post/{id}", cmpln.HTTPRetrievePost)
 
@@ -44,13 +51,27 @@ func main() {
     httpMux.HandleFunc("DELETE /delete/{id}", cmpln.HTTPDeletePost) 
 
 
+
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+
+
+
+    // The following is for serving the html
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    
+    // Set the directory for file serving. index.html is / by default
+
+    fs := http.FileServer(http.Dir("./HTMX/static"))
+
+    httpMux.Handle("/", fs) 
+ 
+
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
     fmt.Printf("Listening on Port %s", listeningport)
-    log.Fatal(server.ListenAndServe())
-
-        
-
-
-   
+    log.Fatal(server.ListenAndServe())    
     // fetching data limited by num works now
     /*dataToFetch, err := cmpln.RetrievePosts("test", 2)
         

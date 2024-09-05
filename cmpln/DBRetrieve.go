@@ -30,7 +30,7 @@ func RetrievePosts(topic string, limitnum int) ([]Post, error) {
     }
 
     // Use placeholders to prevent SQL injection
-    fetchQuery := "SELECT nickname AS Nickname, description AS Description, date AS Date, topic AS Topic FROM Post WHERE topic = ? LIMIT ?"
+    fetchQuery := "SELECT id AS ID, nickname AS Nickname, description AS Description, date AS Date, topic AS Topic FROM Post WHERE topic = ? LIMIT ?"
     rows, err := db.Query(fetchQuery, topic, limitnum)
     if err != nil {
         return nil, fmt.Errorf("Error trying to query the DB: %v", err)
@@ -53,6 +53,7 @@ func RetrievePosts(topic string, limitnum int) ([]Post, error) {
     if err := rows.Err(); err != nil {
         return nil, fmt.Errorf("Error iterating over rows: %v", err)
     }
+   
 
     return postsAsArray, nil
 }
@@ -67,7 +68,7 @@ func RetrievePost(id int64) (Post, error) {
     
 
 
-    fetchQuery := "SELECT nickname AS Nickname, description AS Description, date AS Date, topic AS Topic FROM Post WHERE id = ? LIMIT 1"
+    fetchQuery := "SELECT id AS ID, nickname AS Nickname, description AS Description, date AS Date, topic AS Topic FROM Post WHERE id = ? LIMIT 1"
     row, err := db.Query(fetchQuery, id)
     if err != nil {
         return Post{}, fmt.Errorf("Error trying to query the DB in RetrievePost-Function:%v", err)
