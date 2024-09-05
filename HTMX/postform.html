@@ -1,0 +1,66 @@
+
+
+<div id="modal" class="uk-modal postformcontainer" >
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">LET IT OUUUUUUT</h2>
+        <p>Go an rip and tear and make everyone miserable (you can pay me money under this <a href="/">link</a>)</p>
+
+        <form>
+
+            <div class="id">
+                <label for="id">id</label>
+                <input type="text" id="id" name="id">
+            </div>
+        
+            <div class="nickname">
+                <label for="nickname">nickname</label>
+                <input type="text" id="nickname" name="nickname">
+            </div>
+        
+            <div class="email">
+                <label for="email">email</label>
+                <input type="email" id="email" name="email">
+            </div>
+        
+            <div class="description">
+                <label for="description">description</label>
+                <input type="text" id="description" name="description">
+            </div>
+        
+            <div class="topic">
+                <label for="topic">topic</label>
+                <input type="text" id="topic" name="topic">
+            </div>
+
+
+            <button type="button" class="uk-button uk-button-primary">Save Changes</button>
+            <button 
+                id="cancelButton"
+                type="button" 
+                class="uk-button uk-button-default">Close</button>
+        </form>
+    </div>
+</div>
+<script>
+    // This triggers the fade-in animation when a modal dialog is loaded and displayed
+    window.document.getElementById("showButton").addEventListener("htmx:afterOnLoad", function() {
+        setTimeout(function(){
+            window.document.getElementById("modal").classList.add("uk-open")
+        }, 10)
+    })
+
+
+    // This triggers the fade-out animation when the modal is closed.
+    window.document.getElementById("cancelButton").addEventListener("click", function() {
+        window.document.getElementById("modal").classList.remove("uk-open")
+        setTimeout(function(){
+            window.document.getElementById("modals-here").innerHTML = ""
+            ,200
+        })
+    })
+</script>    
+
+
+
+
+

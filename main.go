@@ -6,7 +6,7 @@ import(
     "log"
     "net/http"
     "cmpln/cmpln"
-    "io"
+    //"io"
 )
 
 func main() {
@@ -63,26 +63,11 @@ func main() {
     // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     
     // Set the directory for file serving. index.html is / by default
-
-    fs := http.FileServer(http.Dir("./HTMX"))
-
-    httpMux.Handle("/", fs) 
+    // yeah im not touching htmx for some time that stuff was mad annoying
+     
     
-    httpMux.HandleFunc("POST /testpost", func(w http.ResponseWriter, r *http.Request){
-        fmt.Println("reached backend")
-        
-        body, err := io.ReadAll(r.Body)
-         
-        if err != nil {
-            fmt.Println(err)
-            return
-        }
-    
-        defer r.Body.Close()
 
-        fmt.Println(string(body))
-        w.Write([]byte("received Post request"))
-    })
+    
 
     // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
