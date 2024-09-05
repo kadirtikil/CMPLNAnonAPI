@@ -6,6 +6,7 @@ import(
     "log"
     "net/http"
     "cmpln/cmpln"
+    "io"
 )
 
 func main() {
@@ -63,33 +64,30 @@ func main() {
     
     // Set the directory for file serving. index.html is / by default
 
-    fs := http.FileServer(http.Dir("./HTMX/static"))
+    fs := http.FileServer(http.Dir("./HTMX"))
 
     httpMux.Handle("/", fs) 
- 
+    
+    httpMux.HandleFunc("POST /testpost", func(w http.ResponseWriter, r *http.Request){
+        fmt.Println("reached backend")
+        
+        body, err := io.ReadAll(r.Body)
+         
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+    
+        defer r.Body.Close()
+
+        fmt.Println(string(body))
+        w.Write([]byte("received Post request"))
+    })
 
     // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    fmt.Printf("Listening on Port %s", listeningport)
+    fmt.Printf("Listening on Port %s\n", listeningport)
     log.Fatal(server.ListenAndServe())    
-    // fetching data limited by num works now
-    /*dataToFetch, err := cmpln.RetrievePosts("test", 2)
-        
-    if err != nil {
-        fmt.Println(err)
-    }*/
-
-
-    // Deleting Posts works. return true if went through and false with error if not.
-    //cmpln.DeletePost(4)
-
-
-    // Creating Posts works. 
-    //fmt.Println(cmpln.CreatePost("new nick", "new description", "new topic"))
-
-
-    // updating posts works.
-    //fmt.Println(cmpln.UpdatePost(5, "main.go", "something form main.go", "golang is cool")) 
-
+  
 
 }
