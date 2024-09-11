@@ -1,78 +1,74 @@
 package main
 
+import (
+	"cmpln/cmpln"
+	"cmpln/view"
+	"fmt"
+	"log"
+	"net/http"
 
-import(
-    "fmt"
-    "log"
-    "net/http"
-    "cmpln/cmpln"
-    //"io"
+	"github.com/a-h/templ"
 )
 
 func main() {
-    // const values
-    const listeningport = ":8080"
-    httpMux := http.NewServeMux()    
-    server := http.Server{
-        Handler: httpMux,
-        Addr: listeningport,
-    }
- 
+	// const values
+	const listeningport = ":8080"
+	httpMux := http.NewServeMux()
+	server := http.Server{
+		Handler: httpMux,
+		Addr:    listeningport,
+	}
 
-    // The following is the CRUD
-    // All this will be packed in some middleware that checks a jwt or maybe not even that. The application is light weight anyway. 
-    // Maybe just leaving your email with a nickname will suffice. 
-    // so ill just check, if the email and the nickname match and then let the post through. 
-    // checks for profanity, spam and so on will folow
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    // Setup db connection
-    err := cmpln.SetupDBConn("root", "admin", "cmplnDB") 
-    
+	// The following is the CRUD
+	// All this will be packed in some middleware that checks a jwt or maybe not even that. The application is light weight anyway.
+	// Maybe just leaving your email with a nickname will suffice.
+	// so ill just check, if the email and the nickname match and then let the post through.
+	// checks for profanity, spam and so on will folow
+	// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	// Setup db connection
+	err := cmpln.SetupDBConn("root", "admin", "cmplnDB")
+
+	if err != nil {
+		fmt.Println("whoopsie at line 42")
+	}
+
+	// Might start some go routines internally. here not needet, http takes care of the queue of requests.
+	// internally there might be some cases where go routines can amplify the speed of the API. will search for a way to benchmark it.
+
+	// Routes
+	// create post
+	httpMux.HandleFunc("POST /create", cmpln.HTTPCreatePost)
+
+	// retrieve posts randomly
+	httpMux.HandleFunc("GET /posts/{topic}/{limit}", cmpln.HTTPRetrievePosts)
+
+	// retrieve certain post
+	httpMux.HandleFunc("GET /post/{id}", cmpln.HTTPRetrievePost)
+
+	// update post
+	httpMux.HandleFunc("PUT /update", cmpln.HTTPUpdatePost)
+
+	// delete post
+	httpMux.HandleFunc("DELETE /delete/{id}", cmpln.HTTPDeletePost)
+
+	// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+	// The following is for serving the html
+	// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+	// templ<> is used for components in combination with htmx. This application is completely server side.
+
+	model_post, err := cmpln.RetrievePost(50)
     if err != nil {
-        fmt.Println("whoopsie at line 42")
+        fmt.Println(err)
     }
 
-    // Might start some go routines internally. here not needet, http takes care of the queue of requests.
-    // internally there might be some cases where go routines can amplify the speed of the API. will search for a way to benchmark it.
+    component := view.PostBoard(model_post)
+	httpMux.Handle("/", templ.Handler(component))
 
-    // Routes 
-    // create post
-    httpMux.HandleFunc("POST /create", cmpln.HTTPCreatePost) 
+	// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    // retrieve posts randomly
-    httpMux.HandleFunc("GET /posts/{topic}/{limit}", cmpln.HTTPRetrievePosts)
-    
-    // retrieve certain post
-    httpMux.HandleFunc("GET /post/{id}", cmpln.HTTPRetrievePost)
-
-    // update post
-    httpMux.HandleFunc("PUT /update", cmpln.HTTPUpdatePost)
-
-    // delete post
-    httpMux.HandleFunc("DELETE /delete/{id}", cmpln.HTTPDeletePost) 
-
-
-
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-
-
-
-
-    // The following is for serving the html
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    
-    // Set the directory for file serving. index.html is / by default
-    // yeah im not touching htmx for some time that stuff was mad annoying
-     
-    
-
-    
-
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    fmt.Printf("Listening on Port %s\n", listeningport)
-    log.Fatal(server.ListenAndServe())    
-  
+	fmt.Printf("Listening on Port %s\n", listeningport)
+	log.Fatal(server.ListenAndServe())
 
 }

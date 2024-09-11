@@ -3,11 +3,12 @@ package cmpln
 import(
     "net/http"
     "encoding/json"
+    "cmpln/models"
 )
 
 func HTTPUpdatePost(w http.ResponseWriter, r *http.Request) {
     
-    var post Post
+    var post models.Post
 
     err := json.NewDecoder(r.Body).Decode(&post)
     if err != nil {

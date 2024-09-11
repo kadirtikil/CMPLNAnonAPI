@@ -2,22 +2,15 @@ package cmpln
 
 import (
     "fmt"
+    "cmpln/models"
 )
 
 
-// the defaults need to be blacklisted.
-type Post struct {
-    Id int64 `default:"ID default"`
-    Nickname string `default:"Default Post Object"`
-    Description string `default:"Default Description"`
-    Date string `default:"Default Date"`
-    Topic string `default:"Default Topic"`
-}
 
 
 // Function to return random posts to the client
-func RetrievePosts(topic string, limitnum int) ([]Post, error) {
-    var postsAsArray []Post
+func RetrievePosts(topic string, limitnum int) ([]models.Post, error) {
+    var postsAsArray []models.Post
     
 
     // Add a test post to the array
@@ -41,7 +34,7 @@ func RetrievePosts(topic string, limitnum int) ([]Post, error) {
 
     // Add the rows to the array of post structs
     for rows.Next() {
-        var post Post
+        var post models.Post
         // Scan the row into the Post struct
         if err := rows.Scan(&post.Id, &post.Nickname, &post.Description, &post.Date, &post.Topic); err != nil {
             return nil, fmt.Errorf("Error scanning row into Post struct: %v", err)
@@ -60,10 +53,10 @@ func RetrievePosts(topic string, limitnum int) ([]Post, error) {
 
 
 
-func RetrievePost(id int64) (Post, error) {
+func RetrievePost(id int64) (models.Post, error) {
     // setup db connection
     if err := SetupDBConn("root", "admin", "cmplnDB"); err != nil {
-        return Post{}, fmt.Errorf("Error trying to establish connection to DB in RetrievePost-Function: %v", err)
+        return models.Post{}, fmt.Errorf("Error trying to establish connection to DB in RetrievePost-Function: %v", err)
     }
     
 
@@ -71,20 +64,20 @@ func RetrievePost(id int64) (Post, error) {
     fetchQuery := "SELECT id AS ID, nickname AS Nickname, description AS Description, date AS Date, topic AS Topic FROM Post WHERE id = ? LIMIT 1"
     row, err := db.Query(fetchQuery, id)
     if err != nil {
-        return Post{}, fmt.Errorf("Error trying to query the DB in RetrievePost-Function:%v", err)
+        return models.Post{}, fmt.Errorf("Error trying to query the DB in RetrievePost-Function:%v", err)
     }
     
     if row == nil {
-        return Post{}, fmt.Errorf("Row doesnt contain the single post to fetch")
+        return models.Post{}, fmt.Errorf("Row doesnt contain the single post to fetch")
     }
 
     defer row.Close()
     defer db.Close()
 
-    var post Post
+    var post models.Post
     for row.Next(){
         if err := row.Scan(&post.Id ,&post.Nickname, &post.Description, &post.Date, &post.Topic); err != nil {
-            return Post{}, fmt.Errorf("Error trying to scan for post object in RetrievePost-Function: %v", err)
+            return models.Post{}, fmt.Errorf("Error trying to scan for post object in RetrievePost-Function: %v", err)
         }
     }
     

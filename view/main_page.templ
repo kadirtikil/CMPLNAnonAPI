@@ -1,0 +1,21 @@
+package view
+
+import (
+    "cmpln/models"
+)
+
+templ MainPage() {
+    <div>Main Page is here</div>
+}
+
+templ PostBoard(p models.Post) {
+    <div>{p.PrintPost()}</div>
+}
+
+
+templ PostForm() {
+    <div>
+        this is the Post Div
+    </div>
+
+}

@@ -4,6 +4,7 @@ import (
     "net/http"
     "io"
     "encoding/json"
+    "cmpln/models"
 )
 
 
@@ -20,7 +21,7 @@ func HTTPCreatePost(w http.ResponseWriter, r *http.Request) {
 
     // make a post obj from the data in the request body.
     
-    var post Post
+    var post models.Post
     if err := json.Unmarshal(requestbody, &post); err != nil {
         http.Error(w, "Error trying to unmarshal request body" , http.StatusInternalServerError)
         return

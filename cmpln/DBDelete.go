@@ -3,6 +3,7 @@ package cmpln
 import (
     "fmt"
     "reflect"
+    "cmpln/models"
 )
 
 
@@ -16,7 +17,7 @@ func DeletePost(id int64) (bool, error) {
     }
    
 
-    if reflect.DeepEqual(post, Post{}) {
+    if reflect.DeepEqual(post, models.Post{}) {
         return false, fmt.Errorf("Error, empty set returned. The Post does not exist: %v", err)
     }
 
