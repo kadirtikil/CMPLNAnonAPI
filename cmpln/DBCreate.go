@@ -1,49 +1,40 @@
 package cmpln
 
-
-import(
-    "fmt"
+import (
+	"fmt"
 )
 
 func CreatePost(nickname, description, topic string) (int64, error) {
-   
-    // if params are empty just throw an error
-    if nickname == "" || description == "" || topic == "" {
-        return 0, fmt.Errorf("Params are empty. Creating a post is not possible i n CreatePost-Function.")
-    }
 
+	fmt.Println("create post is active")
 
-    if err := SetupDBConn("root", "admin", "cmplnDB"); err != nil {
-        fmt.Errorf("Error trying to establich DB conn in CreatePost-Function: %v", err)
-    }
+	// if params are empty just throw an error
+	if nickname == "" || description == "" || topic == "" {
+		return 0, fmt.Errorf("Params are empty. Creating a post is not possible i n CreatePost-Function.")
+	}
 
-    query := "INSERT INTO Post (nickname, description, date, topic) values(?, ?, NOW(), ?)"
+	if err := SetupDBConn("root", "admin", "cmplnDB"); err != nil {
+		fmt.Errorf("Error trying to establich DB conn in CreatePost-Function: %v", err)
+	}
 
-    // create Post first
-    retvalue, err := db.Exec(query, nickname, description, topic)
+	query := "INSERT INTO Post (nickname, description, date, topic) values(?, ?, NOW(), ?)"
 
-    if err != nil {
-        return 0, fmt.Errorf("Error trying to create new Post in CreatePost-Function: %v", err)
-    }  
+	// create Post first
+	retvalue, err := db.Exec(query, nickname, description, topic)
 
-    // fetch post to check if it really exists. an extra measure to the error check
-    // thought its not possible, but the retvalue from exec can give back thelast posts id. which makes it possible
-    id, err := retvalue.LastInsertId()
-    
-    if err != nil {
-        return 0, fmt.Errorf("Error trying to fetch last id in CreatePost-Function: %v", err)
-    }
+	if err != nil {
+		return 0, fmt.Errorf("Error trying to create new Post in CreatePost-Function: %v", err)
+	}
 
-    
+	// fetch post to check if it really exists. an extra measure to the error check
+	// thought its not possible, but the retvalue from exec can give back thelast posts id. which makes it possible
+	id, err := retvalue.LastInsertId()
 
+	if err != nil {
+		return 0, fmt.Errorf("Error trying to fetch last id in CreatePost-Function: %v", err)
+	}
 
-    defer db.Close()
+	defer db.Close()
 
-
-
-    return id, nil
+	return id, nil
 }
-
-
-
-

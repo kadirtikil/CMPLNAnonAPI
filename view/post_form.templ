@@ -1,0 +1,25 @@
+package view
+
+templ PostForm() {
+    <form class={PostFormDesign()} hx-post="/create" hx-ext="json-enc" hx-trigger="submit" hx-swap="outerHTML" method="POST">
+
+        <label for="nickname">Nickname:</label><br>
+        <input type="text" id="nickname" name="Nickname" required><br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="Email" required><br><br>
+        
+        <label for="topic">Topic:</label><br>
+        <input type="text" id="topic" name="Topic" required><br><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="Description" rows="4" cols="50" required></textarea><br><br>
+        
+        <button type="submit">Submit</button>
+
+    </form>
+}
+
+css PostFormDesign() {
+    background-color: grey;
+}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"cmpln/cmpln"
+	"cmpln/handlers"
 	"cmpln/view"
 	"fmt"
 	"log"
@@ -58,13 +59,17 @@ func main() {
 
 	// templ<> is used for components in combination with htmx. This application is completely server side.
 
-	model_post, err := cmpln.RetrievePost(50)
-    if err != nil {
-        fmt.Println(err)
-    }
+	/* model_post, err := cmpln.RetrievePost(50)
+	if err != nil {
+		fmt.Println(err)
+	} */
 
-    component := view.PostBoard(model_post)
+	component := view.MainPage()
 	httpMux.Handle("/", templ.Handler(component))
+
+	httpMux.Handle("GET /postBoard", templ.Handler(handlers.HandlePostBoard()))
+
+	httpMux.Handle("GET /modal", templ.Handler(view.PostForm()))
 
 	// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
