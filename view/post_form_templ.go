@@ -29,12 +29,12 @@ func PostForm() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{PostFormDesign()}
+		var templ_7745c5c3_Var2 = []any{UnderlayDesign()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -47,7 +47,29 @@ func PostForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-post=\"/create\" hx-ext=\"json-enc\" hx-trigger=\"submit\" hx-swap=\"outerHTML\" method=\"POST\"><label for=\"nickname\">Nickname:</label><br><input type=\"text\" id=\"nickname\" name=\"Nickname\" required><br><br><label for=\"email\">Email:</label><br><input type=\"email\" id=\"email\" name=\"Email\" required><br><br><label for=\"topic\">Topic:</label><br><input type=\"text\" id=\"topic\" name=\"Topic\" required><br><br><label for=\"description\">Description:</label><br><textarea id=\"description\" name=\"Description\" rows=\"4\" cols=\"50\" required></textarea><br><br><button type=\"submit\">Submit</button></form>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"postModal\"><script>\n        function closeModal() {\n            document.getElementById(\"postModal\").style.display = 'none';\n        }\n    </script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 = []any{PostFormDesign()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var4).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/post_form.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-post=\"/create\" hx-ext=\"json-enc\" hx-swap=\"beforeend\"><label for=\"nickname\">Nickname:</label><br><input type=\"text\" id=\"nickname\" name=\"Nickname\" required><br><br><label for=\"email\">Email:</label><br><input type=\"email\" id=\"email\" name=\"Email\" required><br><br><label for=\"topic\">Topic:</label><br><input type=\"text\" id=\"topic\" name=\"Topic\" required><br><br><label for=\"description\">Description:</label><br><textarea id=\"description\" name=\"Description\" rows=\"4\" cols=\"50\" required></textarea><br><br><button type=\"submit\" _=\"on click trigger closeModal\">Submit</button> <button type=\"button\" hx-get=\"about:blank\" hx-swap=\"outerHTML\" onclick=\"closeModal()\">close</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -57,8 +79,41 @@ func PostForm() templ.Component {
 
 func PostFormDesign() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
-	templ_7745c5c3_CSSBuilder.WriteString(`background-color:grey;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`height:70%;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`width:40%;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`background-color:magenta;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid yellow;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:15px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`position:absolute;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:auto;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-right:auto;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:auto;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-bottom:auto;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`left:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`right:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`top:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`bottom:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`z-index:9999;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`PostFormDesign`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func UnderlayDesign() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`height:100%;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`width:100%;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`position:absolute;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`top:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`left:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`right:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`bottom:0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`z-index:1000;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`display:none;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`background-color:rgba(0, 0, 0, 0.5);`)
+	templ_7745c5c3_CSSID := templ.CSSID(`UnderlayDesign`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),

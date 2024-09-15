@@ -11,14 +11,14 @@ import (
 func HandlePostBoard() templ.Component {
 	fmt.Println("handler is active")
 
-	posts, err := cmpln.RetrievePosts("test", 50)
+	posts, err := cmpln.RetrievePosts("test", 16)
 	if err != nil {
 		fmt.Println(err)
 		return nil
 	}
 
 	// get the component now
-	component := view.PostBoard(posts)
+	component := view.Post(posts)
 
 	// now just return the rendered component with its new posts.
 	// need to find an alogirthm, which will then distribute posts evenly on call of client

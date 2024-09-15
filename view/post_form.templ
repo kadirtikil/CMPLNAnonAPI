@@ -1,25 +1,67 @@
 package view
 
 templ PostForm() {
-    <form class={PostFormDesign()} hx-post="/create" hx-ext="json-enc" hx-trigger="submit" hx-swap="outerHTML" method="POST">
+    <div class={UnderlayDesign()} id="postModal">
+    <script>
+        function closeModal() {
+            document.getElementById("postModal").style.display = 'none';
+        }
+    </script>
+        
+        <form class={PostFormDesign()} hx-post="/create" hx-ext="json-enc" hx-swap="beforeend">
 
-        <label for="nickname">Nickname:</label><br>
-        <input type="text" id="nickname" name="Nickname" required><br><br>
-        
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="Email" required><br><br>
-        
-        <label for="topic">Topic:</label><br>
-        <input type="text" id="topic" name="Topic" required><br><br>
-        
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="Description" rows="4" cols="50" required></textarea><br><br>
-        
-        <button type="submit">Submit</button>
-
-    </form>
+            <label for="nickname">Nickname:</label><br>
+            <input type="text" id="nickname" name="Nickname" required><br><br>
+            
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="Email" required><br><br>
+            
+            <label for="topic">Topic:</label><br>
+            <input type="text" id="topic" name="Topic" required><br><br>
+            
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="Description" rows="4" cols="50" required></textarea><br><br>
+            
+            <button type="submit" _="on click trigger closeModal">Submit</button>
+            <button type="button" hx-get="about:blank" hx-swap="outerHTML" onclick="closeModal()">close</button>
+        </form>
+    </div>
 }
 
 css PostFormDesign() {
-    background-color: grey;
+    height: 70%;
+    width: 40%;
+
+    background-color: magenta;
+
+    border: 1px solid yellow;
+    border-radius: 15px;
+
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+}
+
+css UnderlayDesign() {
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    
 }

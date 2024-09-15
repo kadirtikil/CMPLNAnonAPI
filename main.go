@@ -64,7 +64,7 @@ func main() {
 		fmt.Println(err)
 	} */
 
-	component := view.MainPage()
+	component := view.Index()
 	httpMux.Handle("/", templ.Handler(component))
 
 	httpMux.Handle("GET /postBoard", templ.Handler(handlers.HandlePostBoard()))

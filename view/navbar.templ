@@ -1,0 +1,61 @@
+package view
+
+
+css NavbarElementDesign() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+}
+
+css NavbarDesign() {
+    height: 5vh;
+    width: 90vw;
+
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+
+    background-color: rgba(199, 0, 57 , 0.5);
+
+    display: grid;
+    grid-template-rows: 5vh;
+    grid-template-columns: 45vw 45vw;
+
+
+    border: 1px solid yellow;
+    border-radius: 15px;
+
+    z-index: 0;
+}
+
+
+// A navbar containing the create Post button and the headling
+// this component only has some styling 
+templ NavBar() {
+    <div class={NavbarDesign()}>
+        <div style="grid-column: 1 / 2; grid-row: 1 / 2;" class={NavbarElementDesign()}>COMPLAIN ABOUT ANYTHING</div>
+        
+        
+        <!-- Open Form for Post as Modal here. -->
+        <div style="grid-column: 2 / 3; grid-row: 1 / 2;" class={NavbarElementDesign()}>        
+            
+            <!--
+            <button class="btn primary" hx-get="/modal" hx-target="#modal" hx-swap="beforeend">Open a Modal</button>
+    
+            <div id="modal">
+            
+            </div>
+            -->
+
+            <script>
+                function openModal() {
+                    document.getElementById("postModal").style.display = 'block';
+                }
+            </script>
+
+            <button class="btn primary" hx-get="/modal" hx-target="html" hx-swap="beforeend" onclick="openModal()">COMPLAIN HERE!</button>
+
+
+        </div>
+    </div>
+}

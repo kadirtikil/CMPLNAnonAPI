@@ -16,53 +16,19 @@ css MainPageDesign() {
     
 }
 
-// Navbar design.
-// stays static doesnt move, always provides fast route to options.
-css NavbarDesign() {
-    height: 5vh;
-    width: 90vw;
+css ModalDivDesign() {
+    display: none;
 
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-
-    background-color: rgba(199, 0, 57 , 0.5);
-
-    display: grid;
-    grid-template-rows: 5vh;
-    grid-template-columns: 45vw 45vw;
-
-
-    border: 1px solid yellow;
-    border-radius: 15px;
-}
-
-// Design of Postboard. 
-css PostBoardDesign() {
-    height: auto;
-    width: 90vw;
-
-    margin-bottom: 1vh;
-
-    background-color: rgba(0, 0, 139, 0.3);
-
-    display: grid;
-    grid-auto-rows: 22.5vh 22.5vh 22.5vh 22.5vh;
-    grid-template-columns: 22.5vw 22.5vw 22.5vw 22.5vw;
-    
-
-    border: 1px solid magenta;
-    border-radius: 15px;
 }
 
 
 
-templ MainPage() {
+templ Index() {
     <html class={MainPageDesign()}>
         <head style="margin: 0;">
-            <title>KDR x HTMX x TEMPL</title>
-            <div class={NavbarDesign()} >
-                @NavBar()
-            </div>
+            <title>KDR x GO x HTMX x TEMPL</title>
+             
+            @NavBar()
             
             <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
             
@@ -72,60 +38,13 @@ templ MainPage() {
 
         </head>
 
-        <body style="margin: 0;">
-            <div id="modal">
-            </div>
+        <body style="margin: 0;"> 
             
-            <div hx-trigger="load" hx-get="/postBoard" hx-target="#postBoard" id="postBoard" class={"postBoard", PostBoardDesign()}>
-                <!-- 
-                    AND THIS is where htmx comes in. the component will be fetched per api by using its handler.
-                    so the whole htmx does not need to be reloadet, instead htmx will replace it. got ive come full circle now lol.
-
-                    So like on load, htmx will replace the div we r in right now.
-                -->
-
-            </div>
+            <div class={ModalDivDesign()} class="modal" id="modal" _="on closeModal add .closing"></div>
+  
+            @PostBoard()            
         </body>
     </html>
 }
 
-css ModalDivDesign() {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-
-css NavbarElementDesign() {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-// A navbar containing the create Post button and the headling
-// this component only has some styling 
-templ NavBar() {
-    <div style="grid-column: 1 / 2; grid-row: 1 / 2;" class={NavbarElementDesign()}>COMPLAIN ABOUT ANYTHING</div>
-    
-    
-    <!-- Open Form for Post as Modal here. -->
-    <div style="grid-column: 2 / 3; grid-row: 1 / 2;" class={NavbarElementDesign()}>        
-        <!--<button class="btn primary" hx-get="/modal" hx-target="#modal" hx-swap="beforeend">Open a Modal</button>
- 
-        <div id="modal">
-        
-        </div>
-        -->
-
-        <button class="btn primary" hx-get="/modal" hx-target="#modal" >COMPLAIN HERE!</button>
-
-
-    </div>
-}

@@ -14,7 +14,7 @@ func CreatePost(nickname, description, topic string) (int64, error) {
 	}
 
 	if err := SetupDBConn("root", "admin", "cmplnDB"); err != nil {
-		fmt.Errorf("Error trying to establich DB conn in CreatePost-Function: %v", err)
+		return 0, fmt.Errorf("Error trying to establich DB conn in CreatePost-Function: %v", err)
 	}
 
 	query := "INSERT INTO Post (nickname, description, date, topic) values(?, ?, NOW(), ?)"
