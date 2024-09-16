@@ -17,3 +17,40 @@ Das Frontend wird in HTMX mit der Nutzung von TEMPL zur Komponentisierung (diese
 ## Datenbank
 MariaDB. Keine Ahnung warum unbedingt. Ist halt eine Relationale Datenbank die gut funktioniert und kostenlos ist (zumindest lokal). Werde wahrscheinlich aber auf PostgreSQL wechseln.
 ![Alt text](.readmestuff/DBD.png)
+
+
+#Struktur
+
+## cmpln
+Enthält:
+- Datenbanklogik
+- HTTPlogik
+- Tests der Datenbanklogik
+
+## view
+Enthält:
+- TEMPL Komponenten mit HTMX features.
+- (Go Dateien dort sind Produkt aus **templ generate** command)
+
+## handlers
+Enthält:
+- Handler für das fetchen der TEMPL Komponenten.
+
+
+# CRUD Operationen
+Um meine go Kenntnisse zu erweitern und aufzufrischen, habe ich CRUD Operationen implementiert. Diese sind keine API. Alles wird Serverseitig gerendered. Da HTMX in kombination mit TEMPL dafür sorgt, dass die ganze DOM nicht neu geladen werden muss, bei jeder Operation, ist die Belastung nicht zu hoch. Zumal es an sich eine leichtgewichtigte Anwendung ist.
+
+## Create
+Ist eine simple Funktion, die ein Post Request behandelt.
+
+
+## Retrieve
+Hierzu gibt es zwei Funktionen. Die eine fetched einen bestimmten Post. 
+![Alt text](.readmestuff/DBD.png)
+
+Die andere fetched eine Bestimmte Anzahl an Posts. ACHTUNG: Diese Funktion fetched Posts unter einem gewissen topic mit einem Limit (Anzahl an Posts). Um zu gewährleisten, dass alle Posts gleich oft (also linear oft) gefetched werden, muss noch ein Algorithmus hierzu entwickelt werden (folgt).
+![Alt text](.readmestuff/DBD.png)
+
+## Update
+
+## Delete
