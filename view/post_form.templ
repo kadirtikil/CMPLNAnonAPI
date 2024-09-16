@@ -2,7 +2,11 @@ package view
 
 templ PostForm() {
     <div class={UnderlayDesign()} id="postModal">
+    
+    <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+
         <script>
+
             function closeModal() {
                 document.getElementById("modal").style.display = 'none';
             }
@@ -24,7 +28,7 @@ templ PostForm() {
             <label for="description">Description:</label><br>
             <textarea id="description" name="Description" rows="4" cols="50" required></textarea><br><br>
             
-            <button type="submit" >Submit</button>
+            <button type="submit" hx-swap="outerHTML" >Submit</button>
             <button type="button" onclick="closeModal()" >close</button>
         </form>
 

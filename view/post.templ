@@ -6,18 +6,28 @@ import (
 )
 
 templ Post(posts []models.Post) {
+
     for _, post := range posts {
-        <div class={PostDesign()}>
+        <div class={PostDesign()}>        
             <p style="display: none;">{string(post.Id)}</p>
             <p style="grid-column: 1 / 3; grid-row: 1/ 2;">{post.Nickname}</p>
             <p style="grid-column: 1 / 3; grid-row: 2/ 3;">{post.Description}</p>
             <p style="grid-column: 1 / 2; grid-row: 3/ 4;">{post.Date}</p>
-            <p style="grid-column: 2 / 3; grid-row: 3/ 4;">{post.Topic}</p>
+            <p style="grid-column: 1 / 2; grid-row: 3/ 4;">{post.Topic}</p>
+            <a class={editButtonVisibility()} hx-post="/postUpdateForm" hx-target="postFormWithData">edit</a>
+
+            <div id="postFormWithData">
+
+            </div>
+
         </div>           
     }    
 
 }
 
+css editButtonVisibility()  {
+    
+}
 
 // styling für die einzelnen posts
 css PostDesign() {

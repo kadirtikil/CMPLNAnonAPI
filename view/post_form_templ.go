@@ -47,7 +47,7 @@ func PostForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"postModal\"><script>\n            function closeModal() {\n                document.getElementById(\"modal\").style.display = 'none';\n                document.getElementById(\"modal\").reset();\n                \n            }\n\n        </script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"postModal\"><script src=\"https://unpkg.com/htmx.org@2.0.2\" integrity=\"sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ\" crossorigin=\"anonymous\"></script><script>\n\n            function closeModal() {\n                document.getElementById(\"modal\").style.display = 'none';\n            }\n\n        </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -69,7 +69,7 @@ func PostForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><label for=\"nickname\">Nickname:</label><br><input type=\"text\" id=\"nickname\" name=\"Nickname\" required><br><br><label for=\"email\">Email:</label><br><input type=\"email\" id=\"email\" name=\"Email\" required><br><br><label for=\"topic\">Topic:</label><br><input type=\"text\" id=\"topic\" name=\"Topic\" required><br><br><label for=\"description\">Description:</label><br><textarea id=\"description\" name=\"Description\" rows=\"4\" cols=\"50\" required></textarea><br><br><button type=\"submit\">Submit</button> <button type=\"button\" onclick=\"closeModal()\">close</button></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><label for=\"nickname\">Nickname:</label><br><input type=\"text\" id=\"nickname\" name=\"Nickname\" required><br><br><label for=\"email\">Email:</label><br><input type=\"email\" id=\"email\" name=\"Email\" required><br><br><label for=\"topic\">Topic:</label><br><input type=\"text\" id=\"topic\" name=\"Topic\" required><br><br><label for=\"description\">Description:</label><br><textarea id=\"description\" name=\"Description\" rows=\"4\" cols=\"50\" required></textarea><br><br><button type=\"submit\" hx-swap=\"outerHTML\">Submit</button> <button type=\"button\" onclick=\"closeModal()\">close</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

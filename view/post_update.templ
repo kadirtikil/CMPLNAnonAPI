@@ -1,0 +1,33 @@
+package view
+
+import "cmpln/models"
+
+
+templ PostFormUpdate(post models.Post, email string) {
+    <div class={UnderlayDesign()} id="postFormUpdateContainer">
+
+    <script>
+        function closeModal() {
+            document.getElementById("postFormUpdateContainer").style.display = 'none';
+        }
+    </script>
+
+    <form hx-put="/update">
+        <label for="nickname">Nickname:</label><br>
+        <input type="text" id="nickname" name="Nickname" value={post.Nickname} required><br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="Email" required><br><br>
+        
+        <label for="topic">Topic:</label><br>
+        <input type="text" id="topic" name="Topic" value={post.Topic} required><br><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="Description" rows="4" cols="50" required>{post.Description}</textarea><br><br>
+        
+        <button type="submit" hx-swap="outerHTML">Submit</button>
+        <button type="button" onclick="closeModal()" >close</button>
+    </form>
+
+    </div>
+}
