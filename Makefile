@@ -1,4 +1,4 @@
-run:
+serve:
 	@templ generate
 	@go run main.go
 

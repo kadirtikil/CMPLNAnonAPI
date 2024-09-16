@@ -49,12 +49,12 @@ templ NavBar() {
 
             <script>
                 function openModal() {
-                    document.getElementById("postModal").style.display = 'block';
+                    document.getElementById("modal").style.display = 'block';
                 }
             </script>
 
-            <button class="btn primary" hx-get="/modal" hx-target="html" hx-swap="beforeend" onclick="openModal()">COMPLAIN HERE!</button>
-
+            <button class="btn primary" hx-trigger="load" hx-target="html" hx-swap="beforeend" onclick="openModal()">COMPLAIN HERE!</button>
+        
 
         </div>
     </div>

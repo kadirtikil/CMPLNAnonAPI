@@ -126,7 +126,7 @@ func NavBar() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!--\n            <button class=\"btn primary\" hx-get=\"/modal\" hx-target=\"#modal\" hx-swap=\"beforeend\">Open a Modal</button>\n    \n            <div id=\"modal\">\n            \n            </div>\n            --><script>\n                function openModal() {\n                    document.getElementById(\"postModal\").style.display = 'block';\n                }\n            </script><button class=\"btn primary\" hx-get=\"/modal\" hx-target=\"html\" hx-swap=\"beforeend\" onclick=\"openModal()\">COMPLAIN HERE!</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!--\n            <button class=\"btn primary\" hx-get=\"/modal\" hx-target=\"#modal\" hx-swap=\"beforeend\">Open a Modal</button>\n    \n            <div id=\"modal\">\n            \n            </div>\n            --><script>\n                function openModal() {\n                    document.getElementById(\"modal\").style.display = 'block';\n                }\n            </script><button class=\"btn primary\" hx-trigger=\"load\" hx-target=\"html\" hx-swap=\"beforeend\" onclick=\"openModal()\">COMPLAIN HERE!</button></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

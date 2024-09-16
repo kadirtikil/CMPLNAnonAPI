@@ -2,13 +2,15 @@ package view
 
 templ PostForm() {
     <div class={UnderlayDesign()} id="postModal">
-    <script>
-        function closeModal() {
-            document.getElementById("postModal").style.display = 'none';
-        }
-    </script>
-        
-        <form class={PostFormDesign()} hx-post="/create" hx-ext="json-enc" hx-swap="beforeend">
+        <script>
+            function closeModal() {
+                document.getElementById("modal").style.display = 'none';
+            }
+
+        </script>
+
+
+        <form id="postForm" hx-ext="json-enc" hx-swap="beforeend" class={PostFormDesign()}>
 
             <label for="nickname">Nickname:</label><br>
             <input type="text" id="nickname" name="Nickname" required><br><br>
@@ -22,9 +24,11 @@ templ PostForm() {
             <label for="description">Description:</label><br>
             <textarea id="description" name="Description" rows="4" cols="50" required></textarea><br><br>
             
-            <button type="submit" _="on click trigger closeModal">Submit</button>
-            <button type="button" hx-get="about:blank" hx-swap="outerHTML" onclick="closeModal()">close</button>
+            <button type="submit" >Submit</button>
+            <button type="button" onclick="closeModal()" >close</button>
         </form>
+
+
     </div>
 }
 
@@ -59,8 +63,6 @@ css UnderlayDesign() {
     right: 0;
     bottom: 0;
     z-index: 1000;
-
-    display: none;
 
     background-color: rgba(0, 0, 0, 0.5);
     

@@ -47,7 +47,7 @@ func PostForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"postModal\"><script>\n        function closeModal() {\n            document.getElementById(\"postModal\").style.display = 'none';\n        }\n    </script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"postModal\"><script>\n            function closeModal() {\n                document.getElementById(\"modal\").style.display = 'none';\n                document.getElementById(\"modal\").reset();\n                \n            }\n\n        </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -56,7 +56,7 @@ func PostForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"postForm\" hx-ext=\"json-enc\" hx-swap=\"beforeend\" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -69,7 +69,7 @@ func PostForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-post=\"/create\" hx-ext=\"json-enc\" hx-swap=\"beforeend\"><label for=\"nickname\">Nickname:</label><br><input type=\"text\" id=\"nickname\" name=\"Nickname\" required><br><br><label for=\"email\">Email:</label><br><input type=\"email\" id=\"email\" name=\"Email\" required><br><br><label for=\"topic\">Topic:</label><br><input type=\"text\" id=\"topic\" name=\"Topic\" required><br><br><label for=\"description\">Description:</label><br><textarea id=\"description\" name=\"Description\" rows=\"4\" cols=\"50\" required></textarea><br><br><button type=\"submit\" _=\"on click trigger closeModal\">Submit</button> <button type=\"button\" hx-get=\"about:blank\" hx-swap=\"outerHTML\" onclick=\"closeModal()\">close</button></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><label for=\"nickname\">Nickname:</label><br><input type=\"text\" id=\"nickname\" name=\"Nickname\" required><br><br><label for=\"email\">Email:</label><br><input type=\"email\" id=\"email\" name=\"Email\" required><br><br><label for=\"topic\">Topic:</label><br><input type=\"text\" id=\"topic\" name=\"Topic\" required><br><br><label for=\"description\">Description:</label><br><textarea id=\"description\" name=\"Description\" rows=\"4\" cols=\"50\" required></textarea><br><br><button type=\"submit\">Submit</button> <button type=\"button\" onclick=\"closeModal()\">close</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -111,7 +111,6 @@ func UnderlayDesign() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`right:0;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`bottom:0;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`z-index:1000;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`display:none;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:rgba(0, 0, 0, 0.5);`)
 	templ_7745c5c3_CSSID := templ.CSSID(`UnderlayDesign`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
