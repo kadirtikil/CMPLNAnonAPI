@@ -44,8 +44,13 @@ Makefile zur automatisierung gängiger commands. Wie das pushen auf git, oder da
 # CRUD Operationen
 Um meine go Kenntnisse zu erweitern und aufzufrischen, habe ich CRUD Operationen implementiert. Diese sind keine API. Alles wird Serverseitig gerendered. Da HTMX in kombination mit TEMPL dafür sorgt, dass die ganze DOM nicht neu geladen werden muss, bei jeder Operation, ist die Belastung nicht zu hoch. Zumal es an sich eine leichtgewichtigte Anwendung ist.
 
+## Datenbankverbindung
+Globale Variable die Verbindung der Datenbank enthält. Jede Datenbankoperation öffnet eine Verbindung, und schließt diese danach. D.h. die Verbindung bleibt nicht offen außerhalb einer Operation.
+![Alt text](.readmestuff/DBD.png)
+(DBConnection.go)
+
 ## Create
-Ist eine simple Funktion, die ein Post Request behandelt.
+Ist eine simple Funktion, die ein POST Request behandelt.
 
 
 ## Retrieve
@@ -56,5 +61,9 @@ Die andere fetched eine Bestimmte Anzahl an Posts. ACHTUNG: Diese Funktion fetch
 ![Alt text](.readmestuff/DBD.png)
 
 ## Update
+Ist eine simple Funktion, die ein PUT Request behandelt.
+![Alt text](.readmestuff/DBD.png)
 
 ## Delete
+Ist eine simple Funktion, die eine DELETE Request behandelt.
+![Alt text](.readmestuff/DBD.png)
