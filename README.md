@@ -19,7 +19,8 @@ MariaDB. Keine Ahnung warum unbedingt. Ist halt eine Relationale Datenbank die g
 ![Alt text](.readmestuff/DBD.png)
 
 
-#Struktur
+# Struktur
+Aufbau des gesamten Projekts hier erklärt.
 
 ## cmpln
 Enthält:
@@ -36,6 +37,9 @@ Enthält:
 Enthält:
 - Handler für das fetchen der TEMPL Komponenten.
 
+
+## Weiteres
+Makefile zur automatisierung gängiger commands. Wie das pushen auf git, oder das builden des Servers (jede Änderung in TEMPL erfordert ein weiteres **templ generate**, nervt auf dauer). Weiter noch Go Module Metadata und Ordner für Readmezeugs.
 
 # CRUD Operationen
 Um meine go Kenntnisse zu erweitern und aufzufrischen, habe ich CRUD Operationen implementiert. Diese sind keine API. Alles wird Serverseitig gerendered. Da HTMX in kombination mit TEMPL dafür sorgt, dass die ganze DOM nicht neu geladen werden muss, bei jeder Operation, ist die Belastung nicht zu hoch. Zumal es an sich eine leichtgewichtigte Anwendung ist.
